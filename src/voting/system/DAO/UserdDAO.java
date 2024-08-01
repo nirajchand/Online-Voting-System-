@@ -30,4 +30,20 @@ public class UserdDAO {
             return false;
         }
     }
+    public boolean getdata(LoginModel loginmodel) throws SQLException {
+        boolean status = false;
+        String query = "SELECT * FROM users WHERE Voter_id = ? AND Password = ?";
+        try (PreparedStatement pst = conn.prepareStatement(query)) {
+            pst.setString(1, loginmodel.getVoter_Id());
+            pst.setString(2, loginmodel.getPassword());
+
+            ResultSet resultSet = pst.executeQuery();
+            if (resultSet.next()) {
+                status = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return status;
+    }
 }
