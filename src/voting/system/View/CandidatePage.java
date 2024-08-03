@@ -212,7 +212,37 @@ public class CandidatePage extends JFrame {
             photoLabel.putClientProperty("photoPath", path);
         }
     }
+    public void saveCandidateData() {
+        String nationalIdentityName = field1.getText();
+        String candidateName = field2.getText();
+        String fatherName = field3.getText();
+        String motherName = field4.getText();
+        String province = field5.getText();
+        String district = field6.getText();
+        String constituency = field7.getText();
+        String party = field8.getText();
+        String photoPath = (String) photoLabel.getClientProperty("photoPath");
 
+        mysqlConnection mysql = new mysqlConnection();
+        Connection conn = mysql.openConnection();
+        String sql = "INSERT INTO candidate (national_identity_no, candidate_name, father_name, mother_name, province, district, con_no, party, photo) VALUES (?, ?, ?, ?, ?, ?, ?,?,?)";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, nationalIdentityName);
+            pstmt.setString(2, candidateName);
+            pstmt.setString(3, fatherName);
+            pstmt.setString(4, motherName);
+            pstmt.setString(5, province);
+            pstmt.setString(6, district);
+            pstmt.setString(7, constituency);
+            pstmt.setString(8, party);
+            pstmt.setString(9, photoPath);
+            pstmt.executeUpdate();
+            pstmt.close();
+            JOptionPane.showMessageDialog(null, "Submitted successfully!");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
     
 
 }
