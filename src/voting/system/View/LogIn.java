@@ -3,14 +3,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-public class Login extends JFrame {
 public class LogIn extends JFrame {
     
     private JTextField voterID_entry;
     private JTextField password_entry;
     private JButton logButton; 
 
-    public Login(){
     public LogIn(){
         setSize(1920,1080);
         setTitle("Login page");
