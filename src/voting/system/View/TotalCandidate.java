@@ -106,4 +106,47 @@ public class TotalCandidate extends JFrame {
             }
         }
     }
+    
+    public void updateCandidatePanel(JPanel panel, String[] data) {
+        JPanel candidateInfoPanel = new JPanel();
+        candidateInfoPanel.setLayout(null);
+        candidateInfoPanel.setPreferredSize(new Dimension(1920, 300));
+        candidateInfoPanel.setBorder(new LineBorder(Color.BLACK, 1));
+
+        JLabel photoLabel = new JLabel();
+        photoLabel.setBounds(5, 10, 250, 250);
+        candidateInfoPanel.add(photoLabel);
+
+        JLabel can_label = new JLabel("Name: " + data[1]);
+        can_label.setBounds(270, 10, 200, 30);
+        can_label.setFont(new Font("times new roman", Font.BOLD, 18));
+        candidateInfoPanel.add(can_label);
+
+        JLabel label1 = new JLabel("National ID: " + data[0]);
+        label1.setBounds(270, 50, 200, 30);
+        label1.setFont(new Font("times new roman", Font.BOLD, 18));
+        candidateInfoPanel.add(label1);
+
+        JLabel label3 = new JLabel("Address: " + data[2] + ", " + data[3]);
+        label3.setBounds(270, 90, 400, 30);
+        label3.setFont(new Font("times new roman", Font.BOLD, 18));
+        candidateInfoPanel.add(label3);
+
+        JLabel label4 = new JLabel("Party: " + data[4]);
+        label4.setBounds(270, 130, 200, 30);
+        label4.setFont(new Font("times new roman", Font.BOLD, 18));
+        candidateInfoPanel.add(label4);
+
+        try {
+            BufferedImage img = ImageIO.read(new File(data[5]));
+            ImageIcon icon = new ImageIcon(img.getScaledInstance(250, 250, Image.SCALE_SMOOTH));
+            photoLabel.setIcon(icon);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        panel.add(candidateInfoPanel);
+        panel.revalidate();
+        panel.repaint();
+    }
 }
