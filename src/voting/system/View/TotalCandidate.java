@@ -74,5 +74,36 @@ public class TotalCandidate extends JFrame {
         setVisible(true);
     }
 
-    
+    public ArrayList<String[]> fetchCandidateData(String con_no) {
+        ArrayList<String[]> candidateDataList = new ArrayList<>();
+        String sql = "SELECT DISTINCT national_identity_no, candidate_name, province, district, party, photo FROM candidate WHERE con_no = ?";
+        mysqlConnection mysql = new mysqlConnection();
+        Connection conn = mysql.openConnection();
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, con_no);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                String[] data = new String[6];
+                data[0] = rs.getString("national_identity_no");
+                data[1] = rs.getString("candidate_name");
+                data[2] = rs.getString("province");
+                data[3] = rs.getString("district");
+                data[4] = rs.getString("party");
+                data[5] = rs.getString("photo");
+                candidateDataList.add(data);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return candidateDataList;
+    }
+
+    public void fetchAndUpdateCandidates(String con_no) {
+        ArrayList<String[]> candidateDataList = fetchCandidateData(con_no);
+        for (String[] data : candidateDataList) {
+            if (displayedCandidates.add(data[0])) { 
+                updateCandidatePanel(candidatePanel, data);
+            }
+        }
+    }
 }
