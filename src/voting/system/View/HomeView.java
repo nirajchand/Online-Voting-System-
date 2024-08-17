@@ -62,9 +62,6 @@ public class HomeView extends JFrame {
         walkingText.setBounds(0,5, walkingText.getPreferredSize().width, walkingText.getPreferredSize().height);
         top_pan.add(walkingText);
 
-        // Timer to update text position
-      
-        
 
         JButton NoticeBotton = new JButton("Notice");
         NoticeBotton.setBackground(Color.red);
