@@ -4,6 +4,11 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import voting.system.Controller.SigninController;
+import voting.system.Controller.LoginController;
+import voting.system.DAO.UserdDAO;
 import javax.swing.*;
 
 
@@ -80,6 +85,16 @@ public class HomeView extends JFrame {
         SigninButton.setFocusPainted(false);
         SigninButton.setBounds(1200,30,100,40);
         SigninButton.setFont(new Font("Times new Roman",Font.BOLD,22));
+        SigninButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                Signin view = new Signin();
+                UserdDAO dao = new UserdDAO();
+                SigninController controller = new SigninController(view, dao);
+                dispose();
+            }
+
+        });
         add(SigninButton);
        
 
@@ -90,6 +105,17 @@ public class HomeView extends JFrame {
         LoginButton.setFocusPainted(false);
         LoginButton.setBounds(1400,30,100,40);
         LoginButton.setFont(new Font("Times new Roman",Font.BOLD,22));
+        LoginButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                LogIn loginView = new LogIn();
+                UserdDAO dao = new UserdDAO();
+                LoginController lc = new LoginController(dao, loginView);
+                dispose();
+            }
+        
+        });
+        
         add(LoginButton);
       
         
